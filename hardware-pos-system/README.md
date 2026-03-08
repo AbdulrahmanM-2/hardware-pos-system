@@ -1,10 +1,40 @@
-# BuildPro Hardware - POS System
+# BuildPro Hardware - POS System v3.0
 
-A modern, industrial-themed Point of Sale system designed for hardware and building materials stores in Tanzania. Features real-time inventory management, sales tracking, comprehensive analytics, and TZS currency support.
+A production-ready, industrial-themed Point of Sale system designed for hardware and building materials stores in Tanzania. Features real-time inventory management, sales tracking, comprehensive analytics, multi-language support, VAT calculations, and M-Pesa integration.
 
-![Hardware POS System](https://img.shields.io/badge/React-18.2-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8) ![Vite](https://img.shields.io/badge/Vite-5.0-646cff)
+![Hardware POS System](https://img.shields.io/badge/React-18.2-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8) ![Vite](https://img.shields.io/badge/Vite-5.0-646cff) ![Version](https://img.shields.io/badge/version-3.0.0-green)
 
-## ✨ Features
+## 🎉 What's New in v3.0
+
+### **🌍 Multi-Language Support**
+- **English / Swahili** toggle
+- Full UI translation
+- One-click language switching
+
+### **📊 Sales History & Reports**
+- Complete transaction history
+- Daily sales tracking
+- Revenue analytics
+- **CSV Export** - Download reports for accounting
+- Transaction search and filtering
+
+### **💰 VAT Calculations**
+- Automatic 18% VAT calculation (Tanzania standard)
+- Subtotal and tax breakdown on receipts
+- Compliant with Tanzania tax requirements
+
+### **📱 M-Pesa Integration**
+- M-Pesa payment option (UI ready)
+- Phone number capture
+- Payment method tracking on receipts
+
+### **💾 Data Persistence**
+- LocalStorage integration
+- Inventory saved automatically
+- Sales history preserved
+- No data loss on refresh
+
+## ✨ Core Features
 
 ### Point of Sale
 - **TZS Currency Support** - All prices in Tanzanian Shillings with proper formatting

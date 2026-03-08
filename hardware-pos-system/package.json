@@ -1,16 +1,16 @@
 {
   "name": "hardware-pos-system",
-  "version": "2.1.0",
-  "description": "Hardware Building Materials Point of Sale System with Inventory Management - TZS Currency Support",
+  "version": "3.0.0",
+  "description": "Hardware Building Materials POS System - Production Ready with Multi-language, VAT, Sales History & M-Pesa",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "lucide-react": "^0.263.1",
-    "vite": "^5.0.0",
-    "@vitejs/plugin-react": "^4.2.1"
+    "lucide-react": "^0.263.1"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.0",
     "tailwindcss": "^3.4.0",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32"
@@ -28,8 +28,5 @@
     "react"
   ],
   "author": "",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18"
-  }
+  "license": "MIT"
 }
