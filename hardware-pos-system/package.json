@@ -1,12 +1,13 @@
 {
   "name": "hardware-pos-system",
-  "version": "3.0.0",
-  "description": "Hardware Building Materials POS System - Production Ready with Multi-language, VAT, Sales History & M-Pesa",
+  "version": "4.0.0",
+  "description": "Hardware Building Materials POS System - Enterprise Edition with Cloud Database & User Authentication",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "lucide-react": "^0.263.1"
+    "lucide-react": "^0.263.1",
+    "@supabase/supabase-js": "^2.39.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
