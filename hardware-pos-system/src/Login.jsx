@@ -129,21 +129,11 @@ export default function Login({ onLogin, language }) {
               {loading ? t.loggingIn : t.login}
             </button>
           </form>
-
-          {/* Demo Mode Notice */}
-          <div className="mt-6 p-4 bg-zinc-900 border-l-2 border-yellow-500">
-            <p className="text-xs text-zinc-400 text-center">
-              {t.noAccount}
-            </p>
-            <p className="text-xs text-zinc-500 text-center mt-1">
-              Demo: admin@buildpro.com / demo123
-            </p>
-          </div>
         </div>
 
         {/* Version */}
         <p className="text-center text-zinc-600 text-xs mt-4 font-mono">
-          v4.0.0 Enterprise Edition
+          v4.2.0 Enterprise Edition
         </p>
       </div>
     </div>
