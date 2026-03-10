@@ -1,16 +1,14 @@
 {
   "name": "hardware-pos-system",
-  "version": "4.1.0",
-  "description": "Hardware Building Materials POS System - Enterprise Edition with Cloud Database, User Authentication & Sales Analytics",
+  "version": "4.3.0",
+  "description": "Hardware Building Materials POS System - Production Edition with Analytics, Barcode Scanner",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "lucide-react": "^0.263.1",
     "@supabase/supabase-js": "^2.39.0",
-    "recharts": "^2.10.0",
-    "html5-qrcode": "^2.3.8",
-    "date-fns": "^3.0.0"
+    "html5-qrcode": "^2.3.8"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
