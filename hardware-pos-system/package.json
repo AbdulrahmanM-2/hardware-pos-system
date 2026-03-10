@@ -1,7 +1,7 @@
 {
   "name": "hardware-pos-system",
   "version": "5.0.0",
-  "description": "Hardware Building Materials POS System - Complete Enterprise Edition with Customer Management & Loyalty Program",
+  "description": "Hardware Building Materials POS System - Complete Enterprise Edition with Analytics, Barcode Scanner, Receipt Printer, Customer Management & Loyalty Program",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
