@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { ShoppingCart, Package, AlertTriangle, Search, Plus, Minus, X, Trash2, BarChart3, DollarSign, Box, History, Download, Globe, Receipt, LogOut, User, Scan, Camera, Users } from 'lucide-react';
+import { ShoppingCart, Package, AlertTriangle, Search, Plus, Minus, X, Trash2, BarChart3, DollarSign, Box, History, Download, Globe, Receipt, LogOut, User, Scan, Camera } from 'lucide-react';
 
 // Initial inventory data (prices in TZS)
 const initialInventory = [
@@ -191,17 +191,6 @@ export default function HardwarePOS({ user, userProfile, onLogout, language: pro
     barcode: '',
   });
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [autoPrint, setAutoPrint] = useState(() => loadFromStorage('autoPrint', false));
-  const [customers, setCustomers] = useState(() => loadFromStorage('customers', []));
-  const [showCustomerModal, setShowCustomerModal] = useState(false);
-  const [editingCustomer, setEditingCustomer] = useState(null);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [customerForm, setCustomerForm] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    address: '',
-  });
 
   const t = translations[language];
 
@@ -217,14 +206,6 @@ export default function HardwarePOS({ user, userProfile, onLogout, language: pro
   useEffect(() => {
     localStorage.setItem('language', language);
   }, [language]);
-
-  useEffect(() => {
-    saveToStorage('autoPrint', autoPrint);
-  }, [autoPrint]);
-
-  useEffect(() => {
-    saveToStorage('customers', customers);
-  }, [customers]);
 
   // Get unique categories
   const categories = ['All', ...new Set(inventory.map(item => item.category))];
@@ -365,113 +346,6 @@ export default function HardwarePOS({ user, userProfile, onLogout, language: pro
     setCart([]);
     setCashReceived(0);
     setMpesaNumber('');
-
-    // Auto-print if enabled
-    if (autoPrint) {
-      setTimeout(() => printReceipt(transaction), 500);
-    }
-  };
-
-  // Print receipt function
-  const printReceipt = (transaction = lastTransaction) => {
-    if (!transaction) return;
-    
-    const printWindow = window.open('', '_blank');
-    const receiptHTML = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Receipt #${transaction.id}</title>
-        <style>
-          @media print {
-            @page { margin: 0; size: 80mm auto; }
-            body { margin: 0; padding: 0; }
-          }
-          body {
-            font-family: 'Courier New', monospace;
-            width: 80mm;
-            margin: 0 auto;
-            padding: 10mm;
-            font-size: 12px;
-            line-height: 1.4;
-          }
-          .center { text-align: center; }
-          .bold { font-weight: bold; }
-          .large { font-size: 16px; }
-          .divider { border-top: 2px dashed #000; margin: 8px 0; }
-          .line { display: flex; justify-content: space-between; margin: 2px 0; }
-          .items { margin: 8px 0; }
-          .item { margin: 4px 0; }
-          .total { font-size: 14px; font-weight: bold; margin-top: 8px; }
-        </style>
-      </head>
-      <body>
-        <div class="center bold large">BUILDPRO HARDWARE</div>
-        <div class="center">Point of Sale System</div>
-        <div class="center">Receipt</div>
-        <div class="divider"></div>
-        <div class="line">
-          <span>Transaction ID:</span>
-          <span class="bold">${transaction.id}</span>
-        </div>
-        <div class="line">
-          <span>Date:</span>
-          <span>${new Date(transaction.date).toLocaleString()}</span>
-        </div>
-        <div class="line">
-          <span>Payment:</span>
-          <span>${transaction.paymentMethod.toUpperCase()}</span>
-        </div>
-        <div class="divider"></div>
-        <div class="items">
-          ${transaction.items.map(item => `
-            <div class="item">
-              <div class="bold">${item.name}</div>
-              <div class="line">
-                <span>${item.quantity} x ${formatTZS(item.price)}</span>
-                <span class="bold">${formatTZS(item.price * item.quantity)}</span>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-        <div class="divider"></div>
-        <div class="line">
-          <span>Subtotal:</span>
-          <span>${formatTZS(transaction.subtotal)}</span>
-        </div>
-        <div class="line">
-          <span>VAT (18%):</span>
-          <span>${formatTZS(transaction.vat)}</span>
-        </div>
-        <div class="line total">
-          <span>TOTAL:</span>
-          <span>${formatTZS(transaction.total)}</span>
-        </div>
-        ${transaction.paymentMethod === 'cash' && transaction.change > 0 ? `
-          <div class="divider"></div>
-          <div class="line">
-            <span>Cash Received:</span>
-            <span>${formatTZS(transaction.cashReceived)}</span>
-          </div>
-          <div class="line">
-            <span>Change:</span>
-            <span class="bold">${formatTZS(transaction.change)}</span>
-          </div>
-        ` : ''}
-        <div class="divider"></div>
-        <div class="center">THANK YOU FOR YOUR BUSINESS</div>
-        <script>
-          window.onload = function() {
-            window.print();
-            setTimeout(() => window.close(), 100);
-          };
-        </script>
-      </body>
-      </html>
-    `;
-    
-    printWindow.document.write(receiptHTML);
-    printWindow.document.close();
   };
 
   // Adjust inventory
@@ -755,7 +629,7 @@ export default function HardwarePOS({ user, userProfile, onLogout, language: pro
                 <h1 className="text-3xl font-black tracking-tight uppercase" style={{ fontFamily: 'Impact, sans-serif' }}>
                   BuildPro Hardware
                 </h1>
-                <p className="text-zinc-400 text-sm font-mono">POINT OF SALE SYSTEM v5.0{demoMode ? ' (Demo Mode)' : ''}</p>
+                <p className="text-zinc-400 text-sm font-mono">POINT OF SALE SYSTEM v4.3{demoMode ? ' (Demo Mode)' : ''}</p>
               </div>
             </div>
             
@@ -776,18 +650,6 @@ export default function HardwarePOS({ user, userProfile, onLogout, language: pro
               >
                 <Globe className="w-4 h-4" />
                 {language === 'en' ? 'SW' : 'EN'}
-              </button>
-              
-              {/* Auto-Print Toggle */}
-              <button
-                onClick={() => setAutoPrint(!autoPrint)}
-                className={`px-4 py-2 font-bold uppercase transition-all flex items-center gap-2 ${
-                  autoPrint ? 'bg-green-600 hover:bg-green-500' : 'bg-zinc-800 hover:bg-zinc-700'
-                }`}
-                title={autoPrint ? 'Auto-print ON' : 'Auto-print OFF'}
-              >
-                <Receipt className="w-4 h-4" />
-                {autoPrint ? '✓' : ''}
               </button>
               
               {/* Logout Button */}
@@ -848,17 +710,6 @@ export default function HardwarePOS({ user, userProfile, onLogout, language: pro
             >
               <History className="inline w-5 h-5 mr-2" />
               {t.salesHistory}
-            </button>
-            <button
-              onClick={() => setActiveView('customers')}
-              className={`px-6 py-3 font-bold uppercase tracking-wide transition-all ${
-                activeView === 'customers'
-                  ? 'bg-yellow-500 text-zinc-900'
-                  : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
-              }`}
-            >
-              <Users className="inline w-5 h-5 mr-2" />
-              CUSTOMERS
             </button>
           </div>
         </div>
@@ -1117,7 +968,6 @@ export default function HardwarePOS({ user, userProfile, onLogout, language: pro
                       <th className="p-4 font-black uppercase text-sm text-right">{t.vat}</th>
                       <th className="p-4 font-black uppercase text-sm text-right">{t.total}</th>
                       <th className="p-4 font-black uppercase text-sm">{t.paymentMethod}</th>
-                      <th className="p-4 font-black uppercase text-sm">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1142,16 +992,6 @@ export default function HardwarePOS({ user, userProfile, onLogout, language: pro
                           }`}>
                             {sale.paymentMethod}
                           </span>
-                        </td>
-                        <td className="p-4">
-                          <button
-                            onClick={() => printReceipt(sale)}
-                            className="px-3 py-1 bg-yellow-500 hover:bg-yellow-400 text-zinc-900 font-bold uppercase text-xs transition-colors flex items-center gap-1"
-                            title="Reprint Receipt"
-                          >
-                            <Receipt className="w-3 h-3" />
-                            PRINT
-                          </button>
                         </td>
                       </tr>
                     ))}
@@ -2756,21 +2596,12 @@ export default function HardwarePOS() {
               </p>
             </div>
 
-            <div className="flex gap-2">
-              <button
-                onClick={() => printReceipt(lastTransaction)}
-                className="flex-1 bg-yellow-500 hover:bg-yellow-400 text-zinc-900 py-3 font-bold uppercase transition-colors flex items-center justify-center gap-2"
-              >
-                <Receipt className="w-5 h-5" />
-                PRINT
-              </button>
-              <button
-                onClick={() => setShowReceipt(false)}
-                className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white py-3 font-bold uppercase transition-colors"
-              >
-                CLOSE
-              </button>
-            </div>
+            <button
+              onClick={() => setShowReceipt(false)}
+              className="w-full bg-zinc-900 hover:bg-zinc-800 text-white py-3 font-bold uppercase transition-colors"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
